@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Spartan Supplements</title>
+    {% endif %}
+
+    <link href="{{url_for('static', filename='css/layout.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/category_products.css')}}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="navbar-container">
+   <a href="{{url_for('home_bp.home')}}"><img src="{{spartan_image_logo}}" class="navbar-img"></a>
+    <div class="dropdown-categories">
+        <span class="navbar-item-categories">Categories</span>
+        <div class="dropdown-categories-content">
+            {% for category in categories %}
+                <div class="dropdown-subcategory" data-category="{{category.name}}">
+                    <a class="category">{{ category.name }}</a> <i class="fa-solid fa-arrow-right arrow"></i>
+                </div>
+            {% endfor %}
+            <div class="sidebar-content" id="product-container"></div>
+        </div>
+    </div>
+    <input class="navbar-search" type="search" id="search" name="q">
+    <div class="navbar-dropdown-div">
+        <i class="fa-solid fa-square-caret-down navbar-dropdown-btn"></i>
+    </div>
+    <div class="navbar-dropdown-item" id="dropdown">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('orders_bp.my_orders') }}" class="navbar-item">My Orders</a>
+            <a href="{{ url_for('cart_bp.view_cart') }}" class="navbar-item">Cart</a>
+            <a href="{{ url_for('auth_bp.account') }}" class="navbar-item">Account</a>
+            {% if current_user.admin %}
+                <a href="{{ url_for('admin_products_bp.admin') }}" class="navbar-item navbar-admin">Admin Panel</a>
+            {% endif %}
+            <a href="{{ url_for('auth_bp.logout') }}" class="navbar-item">Log Out</a>
+        {% else %}
+            <a href="{{ url_for('auth_bp.login') }}" class="navbar-item">Log in</a>
+            <a href="{{ url_for('auth_bp.register') }}" class="navbar-item">Sign up</a>
+        {% endif %}
+    </div>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('orders_bp.my_orders') }}" class="navbar-item">My Orders</a>
+        <a href="{{ url_for('cart_bp.view_cart') }}" class="navbar-item">Cart</a>
+        <a href="{{ url_for('auth_bp.account') }}" class="navbar-item">Account</a>
+        {% if current_user.admin %}
+            <a href="{{ url_for('admin_products_bp.admin') }}" class="navbar-item navbar-admin">Admin Panel</a>
+        {% endif %}
+        <a href="{{ url_for('auth_bp.logout') }}" class="navbar-item">Log Out</a>
+    {% else %}
+        <a href="{{ url_for('auth_bp.login') }}" class="navbar-item">Log in</a>
+        <a href="{{ url_for('auth_bp.register') }}" class="navbar-item">Sign up</a>
+    {% endif %}
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+{% endwith %}
+
+{% block content %}
+{% endblock %}
+
+<script src="https://kit.fontawesome.com/f535baba00.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const categoryItems = document.querySelectorAll('.dropdown-subcategory');
+        const categoryCache = {}; // Object to hold cached category data
+
+        categoryItems.forEach(item => {
+            item.addEventListener('mouseover', function(){
+                const category = this.dataset.category;
+
+                // Check if data for this category is already cached
+                if (categoryCache[category]) {
+                    renderProducts(categoryCache[category]);
+                } else {
+                    fetch(`/get_products_from_category?category=${category}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Cache fetched data
+                            categoryCache[category] = data;
+                            renderProducts(data);
+                        })
+                        .catch(error => console.error('Error fetching data:', error));  
+                }
+            });
+        });
+
+        function renderProducts(data) {
+            const productContainer = document.getElementById('product-container');
+            productContainer.innerHTML = '';
+            data.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('product');
+
+                const nameElement = document.createElement('h3');
+                nameElement.textContent = product.name;
+                productDiv.appendChild(nameElement);
+
+                const priceElement = document.createElement('p');
+                priceElement.textContent = `Price: $${product.price}`;
+                productDiv.appendChild(priceElement);
+
+                const imageElement = document.createElement('img');
+                imageElement.src = `${product.image}`;
+                imageElement.classList.add('product-image');
+                productDiv.appendChild(imageElement);
+
+                const buttonElement = document.createElement('button');
+                buttonElement.textContent = `Buy Now`;
+                buttonElement.addEventListener('click', function() {
+                    addToCart(product.id);
+                });
+                productDiv.appendChild(buttonElement);
+
+                productContainer.appendChild(productDiv);
+            });
+        }
+
+        function addToCart(productId) {
+            fetch(`/add_to_cart`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_id: productId }), // Include the product ID in the request body
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Item added to cart successfully');
+                } else if (response.status === 401) {
+                    // Redirect to the login page
+                     window.location.href = '/login';
+                }
+                else{
+                    console.error('Failed to add item to cart:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error adding item to cart:', error);
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+    margin-top: 1%;
+}
+
+.home-btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    background-color: #59bd07;
+    color: #fff;
+}
+
+.home-btn:hover, .home-btn:focus, .home-btn:active {
+    background-color: #438a09 !important;
+    outline: none;
+    border: none;
+}

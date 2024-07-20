@@ -1,0 +1,33 @@
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    height: 250px;
+    width: 33.3333%;
+    background-color: white;
+}
+
+.product h3 {
+    font-size: 18px;
+}
+
+.product p {
+    font-size: 14px;
+}
+
+.product-image {
+    width: 45%;
+    height: 45%;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product button {
+    width: 75px;
+    border: 1px solid rgb(31, 155, 0);
+    background-color: rgb(25, 124, 0);
+    color: white;
+    border-radius: 5px;
+}

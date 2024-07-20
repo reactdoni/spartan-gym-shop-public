@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link href="{{url_for('static', filename='css/carousel.css')}}" rel="stylesheet"> 
+</head>
+
+<body>
+    <div class="carousel-container">
+        <img class="first-image" src="{{spartan_header_one}}">
+        <img class="second-image" src="{{spartan_header_two}}">
+        <button class="button-left" onclick="showPreviousImage()">&larr;</button>
+        <button class="button-right" onclick="showNextImage()">&rarr;</button>
+    </div>
+
+    <script>
+        // Get the images
+        const firstImage = document.querySelector('.first-image');
+        const secondImage = document.querySelector('.second-image');
+
+        function showPreviousImage() {
+            firstImage.style.opacity = 1;
+            secondImage.style.opacity = 0;
+        }
+
+        function showNextImage() {
+            firstImage.style.opacity = 0;
+            secondImage.style.opacity = 1;
+        }
+
+        // Function to toggle z-index of the second image
+        function toggleZIndex() {
+            if(firstImage.style.opacity == 0 && secondImage.style.opacity == 1)
+            {
+                firstImage.style.opacity = 1;
+                secondImage.style.opacity = 0;
+            }
+            else {
+                firstImage.style.opacity = 0;
+                secondImage.style.opacity = 1;
+            }
+        }
+
+        // Call the toggleZIndex function every 5 seconds
+        setInterval(toggleZIndex, 5000);
+
+    </script>
+</body>
+</html>

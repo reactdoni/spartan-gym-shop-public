@@ -1,0 +1,311 @@
+body {
+    
+    margin: 0;
+    padding: 0;
+    font-family: 'Jost', sans-serif;
+    background-color: white;
+}
+
+p, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: rgb(39, 43, 46);
+    border-radius: 1rem;
+}
+
+.item-card-new {
+    height: 50px;
+    width: 50px;
+    margin-bottom: 70px;
+    position: absolute;
+}
+
+.products-container {
+    margin: 20px auto; /* Center the container horizontally */
+    width: 100vw;
+}
+
+.item-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Horizontally center flex items */
+}
+
+.item-card {
+    position: relative;
+    background-color: #ffffff;
+    height: 420px;
+    width: 13%;
+    border: 1px solid #e4e4e4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.5s ease;
+}
+
+.item-card-link {
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.item-card:hover {
+    transform: translateY(-15px);
+}
+
+.item-card-image {
+    padding-top:20px;
+    width: 150px;
+    height: 150px;
+    object-fit: fill;
+}
+
+.item-card-name {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.item-card-category {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.item-card-add-btn,
+.item-card-price {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.item-card-price {
+    bottom: 90px;
+}
+
+.item-card-add-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #119718;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.item-card-add-btn:hover {
+    background-color: #016119;
+}
+
+.item-card-price {
+    color: rgb(2, 145, 2);
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.categories {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.category-item {
+    height: 250px;
+    width: 250px;
+}
+
+.category-img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+}
+
+.category-name {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.category-link {
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.products-info {
+    margin-top: 1%;
+    margin-bottom: 5%;
+    margin-left: 1.5%;
+    display: flex;
+    align-items: center;
+}
+
+.products-logo {
+    height: 65px;
+    width: 65px;
+    margin-right: 10px;
+}
+
+.our-products-text {
+    text-align:center;
+    font-weight: 800;
+}
+
+.products-title {
+    font-size: 18px;
+    font-weight: 900;
+    display: flex;
+    flex-direction: column;
+}
+
+.space {
+    margin-left: 100px;
+}
+
+.most-frequented {
+    margin-top: 150px;
+}
+
+.newsletter-container {
+    width: 100vw;
+
+    padding-top: 20px;
+    padding-bottom: 40px;
+    text-align: center;
+    justify-content: center;
+    background-color:rgb(39, 43, 46);
+    color: white;
+    font-size: 24px;
+}
+
+.newsletter-text {
+    margin-left: 5px;
+    display: inline;
+    font-size: 26px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    padding-top: 25px;
+}
+
+.footer-address,
+.footer-links,
+.footer-delivery-and-socials {
+    display: flex;
+    flex-direction: column; /* Align child elements vertically */
+}
+
+.footer-address p, .footer-address i, .footer-links p, .footer-links i
+{
+    margin: 0; 
+}
+
+.footer-links, .footer-delivery-and-socials {
+    margin-top: 10px;
+}
+
+.footer-delivery-and-socials p{
+    margin: 0;
+}
+
+.footer-icon {
+    color: rgb(29, 87, 196);
+}
+
+.spartan-logo-text {
+    width: 250px; /* Adjust width to maintain 4:3 aspect ratio */
+    height: 100px; /* Adjust height to maintain 4:3 aspect ratio */
+    object-fit:cover;
+}
+
+.spartan-kargo {
+    width: 200px;
+    height: 100px;
+    object-fit: fill;
+}
+
+.useful-links {
+    font-size: 24px;
+}
+
+.socials {
+    flex-direction: row;
+}
+
+.wrap {
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.item-space-between {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color:#9e9b9b;
+}
+
+.facebook-icon {
+    display: inline;
+    padding: 10px;
+    font-size: 14px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+    background: #3B5998;
+    color: white;
+}
+
+.instagram-icon {
+    display: inline;
+    padding: 10px;
+    font-size: 14px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+    background: #d18d0e;
+    color: white;
+}
+
+/* Hide the scrollbar */
+::-webkit-scrollbar {
+    width: 0; /* Width of scrollbar */
+}
+
+/* Optional: Make scrollbar track transparent */
+::-webkit-scrollbar-track {
+    background: transparent; /* Color of scrollbar track */
+}
+
+/* Optional: Make scrollbar thumb (the draggable part) transparent */
+::-webkit-scrollbar-thumb {
+    background: transparent; /* Color of scrollbar thumb */
+}

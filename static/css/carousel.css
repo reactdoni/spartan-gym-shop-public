@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.carousel-container {
+    position: relative;
+    height: 600px;
+    width: 100vw;
+    overflow: hidden; /* Hide any content that overflows */
+}
+
+.carousel-container img {
+    position: absolute;
+    width: 100%; /* Make the width of the image 100% of the container */
+    height: 100%; /* Make the height of the image 100% of the container */
+    object-fit: cover;
+    transition: opacity 1s ease-in-out; /* Transition for opacity */
+}
+
+.second-image {
+    z-index: -1; /* Move the second image behind the first image, set to 1 if you want 2nd img to show on top */
+    opacity: 0; /* Initially set opacity to 0 */
+    animation: fadeIn 1s forwards; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.button-left, .button-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.button-left {
+    left: 10px;
+}
+
+.button-right {
+    right: 10px;
+}

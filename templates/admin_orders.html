@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
+        .main-div {
+            padding: 15px;
+        }
+
+        .orders {
+            margin-top: 1%;
+        }
+
+        .top-part {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background-color: rgb(78, 78, 224);
+            padding: 10px;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .status-button {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 15px;
+            padding-right: 15px;
+            background-color: rgb(0, 123, 255);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: rgb(17, 145, 12);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .reset-button {
+            background-color: rgb(204, 17, 17);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .search-bar {
+            background-color: rgb(37, 36, 36);
+            border: none;
+            outline: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Ensures there are no gaps between cells */
+        }
+
+        thead {
+            background-color: rgba(33, 37, 41, 0.2) /* Apply background color to the thead element */
+        }
+
+        th, td {
+            padding: 10px; /* Ensures padding is consistent */
+            text-align: left;
+        }
+
+        th {
+            border-bottom: 2px solid #ddd; /* Adds a bottom border to th */
+        }
+
+        .status-processing {
+            background-color: rgb(255, 193, 7);
+            border-bottom-left-radius:4px;
+            border-bottom-right-radius:4px;
+            border-top-left-radius:4px;
+            border-top-right-radius:4px;
+            color:rgb(33, 37, 41);
+            font-size:12px;
+            font-weight:700;
+            line-height:12px;
+            padding-bottom:3px;
+            padding-left:4.8px;
+            padding-right:4.8px;
+            padding-top:3px;
+            text-align:center;
+            text-indent:0px;
+            text-size-adjust:100%;
+            text-wrap:nowrap;
+        }
+
+        .status-completed {
+            background-color: rgb(12, 138, 23);
+            border-bottom-left-radius:4px;
+            border-bottom-right-radius:4px;
+            border-top-left-radius:4px;
+            border-top-right-radius:4px;
+            color:white;
+            font-size:12px;
+            font-weight:700;
+            line-height:12px;
+            padding-bottom:3px;
+            padding-left:4.8px;
+            padding-right:4.8px;
+            padding-top:3px;
+            text-align:center;
+            text-indent:0px;
+            text-size-adjust:100%;
+            text-wrap:nowrap;
+        }
+
+        .status-canceled {
+            background-color: rgb(194, 8, 8);
+            border-bottom-left-radius:4px;
+            border-bottom-right-radius:4px;
+            border-top-left-radius:4px;
+            border-top-right-radius:4px;
+            color:white;
+            font-size:12px;
+            font-weight:700;
+            line-height:12px;
+            padding-bottom:3px;
+            padding-left:4.8px;
+            padding-right:4.8px;
+            padding-top:3px;
+            text-align:center;
+            text-indent:0px;
+            text-size-adjust:100%;
+            text-wrap:nowrap;
+        }
+
+        h1 {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center; /* Center the pagination */
+            margin-top: 20px; /* Optional: Add some top margin */
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a, .pagination .page-link {
+            color: #007bff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination a:hover, .pagination .page-link:hover {
+            background-color: #e9ecef;
+            color: #0056b3;
+        }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            cursor: default;
+        }
+
+        .pagination .disabled .page-link {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+
+        /* Modal Background Customization */
+        .custom-modal-bg {
+            background-color: #f8f9fa; /* Light background color */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow for a 3D effect */
+        }
+
+        /* Modal Header Customization */
+        .modal-header {
+            background-color: #343a40; /* Dark background color */
+            color: #ffffff; /* White text color */
+            border-bottom: none; /* Remove default border */
+            border-top-left-radius: 10px; /* Match the custom modal background */
+            border-top-right-radius: 10px; /* Match the custom modal background */
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .close {
+            color: #ffffff;
+            font-size: 1.25rem;
+            opacity: 1;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #d9534f;
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        /* Modal Body Customization */
+        .modal-body {
+            padding: 20px;
+        }
+
+        /* Button Customization */
+        .btn {
+            margin: 5px 0;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+            color: #fff;
+        }
+
+        .btn-danger:hover,
+        .btn-danger:focus {
+            background-color: #c9302c;
+            border-color: #ac2925;
+            color: #fff;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            border-color: #eea236;
+            color: #fff;
+        }
+
+        .btn-warning:hover,
+        .btn-warning:focus {
+            background-color: #ec971f;
+            border-color: #d58512;
+            color: #fff;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            color: #fff;
+        }
+
+        .btn-success:hover,
+        .btn-success:focus {
+            background-color: #449d44;
+            border-color: #398439;
+            color: #fff;
+        }
+
+        /* Disabled Button Customization */
+        .btn[disabled] {
+            background-color: #e0e0e0;
+            border-color: #d6d6d6;
+            color: #a0a0a0;
+            cursor: not-allowed;
+            pointer-events: all !important;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="main-div">
+        <h1>Admin Orders History</h1>
+        <div class="top-part">
+            <a href="{{url_for('admin_products_bp.admin')}}" class="back-button">Go back</a>
+            <div class="search-section">
+                <form action="{{ url_for('admin_orders_bp.admin_orders_search') }}" method="post">
+                    <input type="search" class="search-bar" name="q" placeholder="Search for an order..">
+                    <button class="search-button" type="submit" name="action" value="search">Search</button>
+                    <button class="reset-button" type="submit" name="action" value="reset">Reset</button>
+                </form>
+            </div>
+        </div>
+        <div class="orders">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order#</th>
+                        <th>Products</th>
+                        <th>Client</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Created On</th>
+                        <th>Finished On</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% if orders %}
+                    <tbody class="table-body">
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{order.order_id}}</td>
+                                <td>{{order.order_name}}</td>
+                                <td>
+                                    <form action="{{ url_for('admin_orders_bp.admin_orders_search_by_client') }}" method="post">
+                                        <input type="hidden" name="client_id" value="{{ order.order_userid }}">
+                                        <button class="btn" type="submit">{{order.order_client}}</button>
+                                    </form>
+                                </td>
+                                {% if order.order_status == 'Canceled' %}
+                                    <td><span class="status-canceled">Canceled</span></td>
+                                {% elif order.order_status == 'Finished' %}
+                                    <td><span class="status-completed">Finished</span></td>
+                                {% else %}
+                                    <td><span class="status-processing">Processing</span></td>
+                                {% endif %}
+                                <td style="color:rgb(23, 110, 23)"><strong>€{{order.order_price}}</strong></td>
+                                <td>{{order.order_quantity}}</td>
+                                <td style="color:rgb(23, 110, 23)"><strong>€{{order.order_quantity*order.order_price}}</strong></td>
+                                <td>{{order.order_date}}</td>
+                                <td>
+                                    {% if order.order_status == 'Finished' %}
+                                        {{order.order_finish_date}}
+                                    {% else %}
+                                        Not finished
+                                    {% endif %}
+                                </td>
+                                <td><button class="status-button" data-toggle="modal" data-target="#editOrderModal{{ order.order_id }}"><i class="fa-solid fa-ellipsis"></i></button></td>
+                            </tr>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editOrderModal{{ order.order_id }}" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel{{ order.order_id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content custom-modal-bg">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editOrderModalLabel{{ order.order_id }}">Order Status</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/admin_update_order_status" method="post">
+                                                <input type="hidden" name="id" value="{{ order.order_id }}">
+
+                                                {% if order.order_status == 'Finished' %}
+                                                    <button type="submit" class="btn btn-danger" name="status" value="Canceled" disabled>Cancel Order</button>
+                                                    <button type="submit" class="btn btn-warning" name="status" value="Processing" disabled>Processing Order</button>
+                                                    <button type="submit" class="btn btn-success" name="status" value="Finished" disabled>Finish Order</button>
+                                                {% else %}
+                                                    <button type="submit" class="btn btn-danger" name="status" value="Canceled">Cancel Order</button>
+                                                    <button type="submit" class="btn btn-warning" name="status" value="Processing">Processing Order</button>
+                                                    <button type="submit" class="btn btn-success" name="status" value="Finished">Finish Order</button>
+                                                {% endif %}
+                                                <button type="submit" class="btn btn-danger" name="status" value="Delete"><i class="fa-solid fa-trash-can"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </tbody>
+                {% endif %}
+            </table>
+        </div>
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+              {% for num in orders.iter_pages() %}
+                {% if num %}
+                  <li class="{% if num == orders.page %}active{% endif %}">
+                    <a href="{{ url_for('admin_orders_bp.admin_orders', page=num) }}">{{ num }}</a>
+                  </li>
+                {% else %}
+                  <li class="disabled"><span class="page-link">...</span></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/f535baba00.js" crossorigin="anonymous"></script>
+  </body>
+</html>

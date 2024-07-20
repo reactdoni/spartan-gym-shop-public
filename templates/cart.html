@@ -1,0 +1,135 @@
+<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{{url_for('static', filename='css/cart.css')}}" rel="stylesheet">   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" rel="stylesheet" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 mt-2">
+                {% if cart %}
+                    {% for product in cart %}
+                    <div class="card border">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start border-bottom pb-3">
+                                <div class="me-4">
+                                    <img src="{{product.image}}" class="avatar-lg">
+                                </div>
+                                <div class="flex-grow-1 align-self-center overflow-hidden">
+                                    <div>
+                                        <p class="product-name">{{product.name}}</p>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 ms-2">
+                                    <ul class="list-inline mb-0 font-size-16">
+                                        <li class="list-inline-item">
+                                            <a href="{{ url_for('cart_bp.remove_from_cart', product_id=product.id) }}" class="text-muted px-1">
+                                                <i class="mdi mdi-trash-can-outline"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mt-3">
+                                            <p class="text-muted mb-2">Price</p>
+                                            <h5 class="mb-0 mt-2 price-tag">€{{product.price}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mt-3">
+                                            <p class="text-muted mb-2">Quantity</p>
+                                            <div class="d-inline-flex">
+                                                <p>{{product.quantity}}</p>
+                                                <a href="{{ url_for('cart_bp.quantity_up', product_id=product.id) }}" class="text-muted px-1">
+                                                    <i class="fa-solid fa-arrow-up quantity-up"></i>
+                                                </a>
+                                                <a href="{{ url_for('cart_bp.quantity_down', product_id=product.id) }}" class="text-muted px-1">
+                                                    <i class="fa-solid fa-arrow-down quantity-down"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <a class="empty-cart-header" href="{{url_for('home_bp.home')}}">Cart is empty.. Add some products now!</a>
+                    
+                    {% if random_products %}
+                        <p class="products-you-might-like">Products you might like</p>
+
+                        <div class="suggested-products">
+                            {% for product in random_products %}
+                            <a class="product-link" href="{{ url_for('product_bp.product', product_id=product.id) }}">
+                                <div class="suggested-product-card">
+                                    <img class="suggested-product-img" src="{{product.img_url}}">
+                                    <p class="suggested-product-name">{{product.name}}</p>
+                                    <p class="suggested-product-price">€{{product.price}}</p>
+                                </div>    
+                            </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <div class="row my-4">
+                    <div class="col-sm-6">
+                        <a href="{{url_for('home_bp.home')}}" class="continue-shopping">
+                            <i class="mdi mdi-arrow-left"></i>Continue Shopping
+                        </a>
+                    </div>
+                    {% if cart %}
+                    <div class="col-sm-6">
+                        <div class="text-sm-end mt-2 mt-sm-0">
+                            <a href="{{url_for('cart_bp.fillout')}}"><button type="button" class="btn btn-success">Check out</button></a> <a href="{{url_for('cart_bp.empty_cart')}}"><button type="button" class="btn btn-info">Empty Cart</button></a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-xl-4 mt-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mt-5 mt-lg-0">
+                            <div class="card border shadow-none">
+                                <div class="card-body p-4 pt-2">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                {% if cart %}
+                                                    {% set ns = namespace(price=0) %}
+                                                    {% for product in cart %}
+                                                    {% set ns.price = ns.price + (product.price*product.quantity) %}
+                                                    {% endfor %}
+                                                    <tr class="bg-light">
+                                                        <th>Total :</th>
+                                                        <td class="text-end">
+                                                            <span class="fw-bold">${{ ns.price }}</span>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr class="bg-light">
+                                                        <th>Total :</th>
+                                                        <td class="text-end">
+                                                            <span class="fw-bold">$0</span>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/f535baba00.js" crossorigin="anonymous"></script>
+</body>

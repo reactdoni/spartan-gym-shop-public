@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        canvas {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div>
+            <canvas id="lineChart" width="600" height="400"></canvas>
+            <canvas id="barChart" width="600" height="400"></canvas>
+        </div>
+        <div>
+            <canvas id="pieChart" width="400" height="400"></canvas>
+            <canvas id="doughnutChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById("lineChart").getContext("2d");
+        var lineChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: {{ dates | safe }},
+                datasets: [
+                    {
+                        label: "Sales",
+                        data: {{ sales | safe }},
+                        fill: true,
+                        borderColor: "rgb(75,192,192)",
+                        lineTension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        })
+
+        var ctx2 = document.getElementById("barChart").getContext("2d");
+        var barChart = new Chart(ctx2, {
+            type: "bar",
+            data: {
+                labels: {{ dates | safe }},
+                datasets: [
+                    {
+                        label: "Sales",
+                        data: {{ sales | safe }},
+                        backgroundColor: "rgba(75,192,192,0.2)",
+                        borderColor: "rgb(75,192,192)",
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ctx3 = document.getElementById("pieChart").getContext("2d");
+        var pieChart = new Chart(ctx3, {
+            type: "pie",
+            data: {
+                labels: {{ dates | safe }},
+                datasets: [
+                    {
+                        label: "Sales",
+                        data: {{ sales | safe }},
+                        backgroundColor: [
+                            "rgb(255, 99, 132)",
+                            "rgb(54, 162, 235)",
+                            "rgb(255, 205, 86)",
+                            "rgb(75, 192, 192)",
+                            "rgb(153, 102, 255)"
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        });
+
+        var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+        var doughnutChart = new Chart(ctx4, {
+            type: "doughnut",
+            data: {
+                labels: {{ dates | safe }},
+                datasets: [
+                    {
+                        label: "Sales",
+                        data: {{ sales | safe }},
+                        backgroundColor: [
+                            "rgb(255, 99, 132)",
+                            "rgb(54, 162, 235)",
+                            "rgb(255, 205, 86)",
+                            "rgb(75, 192, 192)",
+                            "rgb(153, 102, 255)"
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        });
+
+    </script>
+
+</body>
+</html>

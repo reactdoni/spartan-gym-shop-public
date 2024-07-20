@@ -1,0 +1,137 @@
+body{
+    padding: 0;
+    margin: 0;
+    margin-top: 1%;
+    background-color: #f1f3f7;
+}
+
+.price-tag {
+    margin-top: 125px; /* Adjust the value as needed */
+    font-family: 'Arial', sans-serif;
+    color: rgb(67, 161, 67);
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5);
+  }
+
+.product-name {
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+}
+
+.avatar-lg {
+    height: 5rem;
+    width: 5rem;
+}
+
+.quantity-up {
+    color: rgba(33, 37, 41, 0.75);
+    transition: transform 0.5s ease;
+}
+
+.quantity-down {
+    color: rgba(33, 37, 41, 0.75);
+    transition: transform 0.5s ease;
+}
+
+.quantity-up:hover {
+    color: green;
+    transform: translateY(-5px);
+}
+
+.quantity-down:hover {
+    color: red;
+    transform: translateY(5px);
+}
+
+.bg-success {
+    background-color: blue; /* Your desired green color */
+}
+
+.continue-shopping {
+    text-decoration: underline;
+    font-weight: 500;
+    color: black;
+    font-size: 18px;
+}
+
+.card {
+    margin-bottom: 24px;
+    -webkit-box-shadow: 0 2px 3px #e4e8f0;
+    box-shadow: 0 2px 3px #e4e8f0;
+}
+
+.card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eff0f2;
+    border-radius: 1rem;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.empty-cart-header {
+    text-decoration: none;
+    color: green;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+/* suggested items */
+.suggested-products {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.suggested-product-img {
+    height: 50%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.suggested-product-card {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 300px;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.products-you-might-like {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.suggested-product-name {
+    font-size:18px;
+    font-weight: 700;
+}
+
+.suggested-product-price {
+    font-size:18px;
+    font-weight: 700;
+    color: green;
+}
+
+.product-link {
+    text-decoration: none;
+    color: black;
+}

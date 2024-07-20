@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: 
+    linear-gradient(114.95deg, rgba(182, 113, 24, 0.5) 0%, rgba(0, 71, 255, 0) 34.35%), linear-gradient(180deg, #004B5B 0%, #FFA7A7 100%), linear-gradient(244.35deg, #FFB26A 0%, #3676B1 50.58%, #00A3FF 100%), linear-gradient(244.35deg, #FFFFFF 0%, #004A74 49.48%, #FF0000 100%), radial-gradient(100% 233.99% at 0% 100%, #B70000 0%, #AD00FF 100%), linear-gradient(307.27deg, #219D87 0.37%, #2650BA 50.19%, #2800C6 100%), radial-gradient(100% 140% at 100% 0%, #FF00C7 0%, #006C7A 49.48%, #760000 100%);
+    background-blend-mode: hard-light, overlay, overlay, overlay, difference, difference, normal;
+}
+
+.login-container {
+    border: 1px solid rgb(177, 176, 176);
+    border-radius: 10px;
+    display: inline-block;
+    padding-top: 40px;
+    padding-bottom: 300px;
+    padding-left: 70px;
+    padding-right: 70px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 1.0); /* Adjust background color as needed */
+}
+
+.login-img {
+    text-align: center;
+}
+
+.login-logo {
+    height: 100px;
+    width:100px;
+    object-fit: contain;
+}
+
+.login-shop-label {
+    font-size: 32px;
+    font-weight:700;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.login-button-container {
+    text-align: center; /* Centering content horizontally */
+    padding-top: 25px;
+}
+
+.login-forgot-password {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-password-container {
+    padding-top: 10px;
+}
+
+.login-create-new-account {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.login-create-new-account-container {
+    text-align: center;
+    padding-top: 20px; /* Adjust as needed */
+}
+
+.login-create-new-account {
+    display: inline-block;
+    margin-right: 10px; /* Adjust spacing between text and button */
+}
+
+.login-create-new-account-btn {
+    display: inline-block;
+}
+
+.input-field {
+    width: 400px;
+    border-radius: 0;
+    border: none; /* Remove existing borders */
+    border-bottom: 2px solid rgb(187, 186, 186); /* Add bottom border with transparent color */
+    padding-left: 30px; /* Adjust this value to give space for the icon */
+    transition: border-bottom-color 0.5s; /* Add transition effect */
+    font-size: 18px;
+}
+
+.input-field:focus {
+    outline:none;
+    border-bottom: 2px solid rgb(145, 5, 133); /* Add bottom border */
+}
+
+.input-field:focus ~ .input-container .icon {
+    color: purple; /* Change icon color to purple */
+}
+
+.input-field::placeholder {
+    color: rgb(158, 158, 158);
+}
+
+.input-field:focus::placeholder {
+    color: transparent; /* Make placeholder text transparent when input is focused */
+}
+
+.icon {
+    position: absolute;
+    left: 10px; /* Adjust this value to position the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888; /* Icon color */
+}
+
+/* Define custom properties for gradient positions */
+@property --start-pos {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: false;
+}
+
+@property --end-pos {
+    syntax: '<percentage>';
+    initial-value: 100%;
+    inherits: false;
+}
+
+.login-button {
+    --start-pos: 8%;
+    --end-pos: 89%;
+    background: linear-gradient(90deg, rgba(190,127,249,1) var(--start-pos), rgba(9,9,121,1) 50%, rgba(184,0,255,1) var(--end-pos));
+    border-radius: 20px;
+    padding: 12px 170px;
+    border: none;
+    font-size: 20px;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: --start-pos 0.5s ease, --end-pos 0.5s ease; /* Transition for custom properties */
+}
+
+/* Add hover effect for login button */
+.login-button:hover {
+    --start-pos: 20%; /* Adjust the start position on hover */
+    --end-pos: 80%; /* Adjust the end position on hover */
+}
+
+  
